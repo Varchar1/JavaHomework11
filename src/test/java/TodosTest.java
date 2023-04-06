@@ -154,4 +154,32 @@ public class TodosTest {
         Task[] actual = todos.search("среда");
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void shouldFindManyQueries() {
+        SimpleTask simpleTask = new SimpleTask(5, "Написать 3ю версию приложения");
+
+        String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
+        Epic epic = new Epic(55, subtasks);
+
+        Meeting meeting = new Meeting(
+                555,
+                "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда"
+        );
+
+        Task task = new Task(2);
+
+        Todos todos = new Todos();
+
+        todos.add(simpleTask);
+        todos.add(epic);
+        todos.add(meeting);
+        todos.add(task);
+
+        Task[] expected = {simpleTask, meeting};
+        Task[] actual = todos.search("приложения");
+        Assertions.assertArrayEquals(expected, actual);
+    }
 }
